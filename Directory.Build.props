@@ -3,16 +3,11 @@
         <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        
+        <LangVersion>latest</LangVersion>
         <MicrosoftAspNetCorePackageVersion Condition="'$(TargetFramework)' == 'net6.0'">6.0.0</MicrosoftAspNetCorePackageVersion>
         <MicrosoftAspNetCorePackageVersion Condition="'$(TargetFramework)' == 'net7.0'">7.0.0</MicrosoftAspNetCorePackageVersion>
         <MicrosoftAspNetCorePackageVersion Condition="'$(TargetFramework)' == 'net8.0'">8.0.0</MicrosoftAspNetCorePackageVersion>
-        
     </PropertyGroup>
-
-    <ItemGroup>
-        
-    </ItemGroup>
 
 
 </Project>

@@ -1,9 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+    <PropertyGroup>
+        <Authors>AIDotNet</Authors>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageId>Raccoon.Stack</PackageId>
+        <PackageProjectUrl>https://github.com/AIDotNet/Raccoon.Stack</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/AIDotNet/Raccoon.Stack</RepositoryUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <SignAssembly>true</SignAssembly>
+        <IncludeSymbols>true</IncludeSymbols>
+    </PropertyGroup>
+
     <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftAspNetCorePackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)" />
-        
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.25" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>
