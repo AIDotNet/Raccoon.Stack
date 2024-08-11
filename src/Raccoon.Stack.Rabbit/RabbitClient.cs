@@ -1,9 +1,3 @@
-using System.Collections.Concurrent;
-using System.Threading.Channels;
-using Microsoft.Extensions.Logging;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
 namespace Raccoon.Stack.Rabbit;
 
 public abstract class RabbitClient

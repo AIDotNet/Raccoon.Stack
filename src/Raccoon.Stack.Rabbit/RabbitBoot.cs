@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Hosting;
 
 namespace Raccoon.Stack.Rabbit;
 

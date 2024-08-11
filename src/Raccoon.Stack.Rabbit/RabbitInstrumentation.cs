@@ -5,9 +5,9 @@ namespace Raccoon.Stack.Rabbit;
 
 public class RabbitInstrumentation
 {
-    public const string MeterName = "BSI.Rabbit.Meter";
+    public const string MeterName = "Raccoon.Rabbit.Meter";
 
-    public const string ActivitySourceName = "BSI.Rabbit.ActivitySource";
+    public const string ActivitySourceName = "Raccoon.Rabbit.ActivitySource";
 
     static RabbitInstrumentation()
     {

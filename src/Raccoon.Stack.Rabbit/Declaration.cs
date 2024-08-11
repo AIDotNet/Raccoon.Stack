@@ -1,5 +1,3 @@
-using RabbitMQ.Client;
-
 namespace Raccoon.Stack.Rabbit;
 
 public interface IDeclaration

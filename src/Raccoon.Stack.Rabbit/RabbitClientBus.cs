@@ -1,8 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using RabbitMQ.Client.Events;
-using Raccoon.Stack.Rabbit.Handler;
-
 namespace Raccoon.Stack.Rabbit;
 
 public class RabbitClientBus : RabbitClient
