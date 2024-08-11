@@ -82,7 +82,25 @@ public abstract class RabbitClient
 
         if (opt.FetchCount > 1)
         {
-            SubscribeMultiple(opt, channel, consumer);
+            consumer.Received += async (obj, arg) =>
+            {
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await OnReceived(obj, arg, opt);
+
+                        channel.BasicAck(arg.DeliveryTag, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError($"rabbit on queue({opt.Queue}) received error: {ex.ToString()}");
+                        channel.BasicNack(arg.DeliveryTag, false, opt.FailedRequeue);
+                    }
+                });
+
+                await Task.CompletedTask.ConfigureAwait(false);
+            };
         }
         else
         {
@@ -110,53 +128,6 @@ public abstract class RabbitClient
             consumer: consumer);
 
         return channel;
-    }
-
-    /// <summary>
-    /// 定义处理FetchCount大于1的情况，通过Channel实现并行处理
-    /// </summary>
-    private void SubscribeMultiple(ConsumeOptions opt, IModel channel, AsyncEventingBasicConsumer consumer)
-    {
-        var semaphore = new SemaphoreSlim(opt.FetchCount, opt.FetchCount);
-
-        consumer.Received += async (obj, arg) =>
-        {
-            try
-            {
-                await semaphore.WaitAsync();
-
-                var (model, args, options) = (obj, arg, opt);
-
-                channel.BasicAck(arg.DeliveryTag, false);
-                _ = Task.Run(async () =>
-                {
-                    try
-                    {
-                        await OnReceived(model, args, options);
-
-                        channel.BasicAck(args.DeliveryTag, false);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError($"rabbit on queue({options.Queue}) received error: {ex.ToString()}");
-                        channel.BasicNack(args.DeliveryTag, false, options.FailedRequeue);
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"rabbit on queue({opt.Queue}) received error: {ex.ToString()}");
-                channel.BasicNack(arg.DeliveryTag, false, opt.FailedRequeue);
-            }
-            finally
-            {
-                semaphore.Release();
-            }
-        };
     }
 
 
