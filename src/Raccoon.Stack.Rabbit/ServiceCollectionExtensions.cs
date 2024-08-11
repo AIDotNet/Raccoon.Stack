@@ -1,12 +1,9 @@
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Raccoon.Stack.Rabbit.Handler;
 
 namespace Raccoon.Stack.Rabbit;
 
-public static class ServiceExtensions
+public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// 注册rabbit hanlders
@@ -44,7 +41,7 @@ public static class ServiceExtensions
         var name = typeof(T).Name;
         services.Configure(name, options);
 
-        services.AddSingleton<T>((IServiceProvider sp) =>
+        services.AddSingleton<T>(sp =>
         {
             var log = sp.GetRequiredService<ILogger<T>>();
             var opt = sp.GetRequiredService<IOptionsMonitor<RabbitOptions>>();
