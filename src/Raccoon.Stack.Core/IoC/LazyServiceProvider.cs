@@ -1,10 +1,9 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Extensions.DependencyInjection;
+﻿
 
 namespace Raccoon.Stack.Core.IoC;
 
 /// <summary>
-/// 高效的Lazy服务供应商
+///     高效的Lazy服务供应商
 /// </summary>
 public class LazyServiceProvider : ILazyServiceProvider
 {

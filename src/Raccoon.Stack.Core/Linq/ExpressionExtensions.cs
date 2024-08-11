@@ -1,15 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
-
-namespace Raccoon.Stack.Core.Linq;
+﻿namespace Raccoon.Stack.Core.Linq;
 
 /// <summary>
-/// Expression表达式扩展操作类
+///     Expression表达式扩展操作类
 /// </summary>
 public static class ExpressionExtensions
 {
     /// <summary>
-    /// 以特定的条件运行组合两个Expression表达式
+    ///     以特定的条件运行组合两个Expression表达式
     /// </summary>
     /// <typeparam name="T">表达式的主实体类型</typeparam>
     /// <param name="first">第一个Expression表达式</param>
@@ -26,7 +23,7 @@ public static class ExpressionExtensions
     }
 
     /// <summary>
-    /// 以 Expression.AndAlso 组合两个Expression表达式
+    ///     以 Expression.AndAlso 组合两个Expression表达式
     /// </summary>
     /// <typeparam name="T">表达式的主实体类型</typeparam>
     /// <param name="first">第一个Expression表达式</param>
@@ -40,7 +37,7 @@ public static class ExpressionExtensions
     }
 
     /// <summary>
-    /// 以 Expression.OrElse 组合两个Expression表达式
+    ///     以 Expression.OrElse 组合两个Expression表达式
     /// </summary>
     /// <typeparam name="T">表达式的主实体类型</typeparam>
     /// <param name="first">第一个Expression表达式</param>
@@ -60,7 +57,7 @@ public static class ExpressionExtensions
 
         private ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
         {
-            _map = map ?? new();
+            _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
         }
 
         public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map,
@@ -72,10 +69,7 @@ public static class ExpressionExtensions
         protected override Expression VisitParameter(ParameterExpression node)
         {
             ParameterExpression replacement;
-            if (_map.TryGetValue(node, out replacement))
-            {
-                node = replacement;
-            }
+            if (_map.TryGetValue(node, out replacement)) node = replacement;
 
             return base.VisitParameter(node);
         }

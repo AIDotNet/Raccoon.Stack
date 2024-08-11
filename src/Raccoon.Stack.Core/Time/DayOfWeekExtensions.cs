@@ -11,7 +11,7 @@ public static class DayOfWeekExtensions
     {
         return !dayOfWeek.IsWeekend();
     }
-    
+
     public static string GetWeekName(DayOfWeek dow)
     {
         switch (dow)

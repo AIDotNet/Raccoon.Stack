@@ -16,11 +16,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2024.2.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftAspNetCorePackageVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.25" />
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.25"/>
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="All"/>
     </ItemGroup>
 
 </Project>

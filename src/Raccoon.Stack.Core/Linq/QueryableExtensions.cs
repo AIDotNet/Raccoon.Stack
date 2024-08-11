@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace Raccoon.Stack.Core.Linq;
 
 public static class QueryableExtensions
