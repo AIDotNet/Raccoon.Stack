@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(EntityFrameworkCorePackageVersion)" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EntityFrameworkCorePackageVersion)" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(MicrosoftAspNetCorePackageVersion)" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\..\Authentication\Raccoon.Stack.Authentication.Identity\Raccoon.Stack.Authentication.Identity.csproj" />
+      <ProjectReference Include="..\..\Ddd\Raccoon.Stack.Ddd.Domain\Raccoon.Stack.Ddd.Domain.csproj" />
+      <ProjectReference Include="..\..\Raccoon.Stack.Core\Raccoon.Stack.Core.csproj" />
+      <ProjectReference Include="..\..\Utils\Raccoon.Stack.Extensions.DotNet\Raccoon.Stack.Extensions.DotNet.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Data.Contracts\Raccoon.Stack.Data.Contracts.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Data.Exceptions\Raccoon.Stack.Data.Exceptions.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Data.Isolation\Raccoon.Stack.Data.Isolation.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Data\Raccoon.Stack.Data.csproj" />
+    </ItemGroup>
+
+</Project>

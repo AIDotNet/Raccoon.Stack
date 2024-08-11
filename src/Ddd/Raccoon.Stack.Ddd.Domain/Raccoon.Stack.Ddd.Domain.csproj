@@ -7,5 +7,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Data\Raccoon.Stack.Data.Contracts\Raccoon.Stack.Data.Contracts.csproj"/>
+        <ProjectReference Include="..\..\Data\Raccoon.Stack.Data.Uow\Raccoon.Stack.Data.Uow.csproj" />
+        <ProjectReference Include="..\..\Utils\Models\Raccoon.Stack.Utils.Models\Raccoon.Stack.Utils.Models.csproj" />
     </ItemGroup>
 </Project>
