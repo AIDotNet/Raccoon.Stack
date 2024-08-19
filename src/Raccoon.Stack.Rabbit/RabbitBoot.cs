@@ -11,17 +11,13 @@ public class RabbitBoot : IHostedService
         _rabbitClient = rabbitClient;
     }
     
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        _rabbitClient.Start();
-
-        return Task.CompletedTask;
+        await _rabbitClient.StartAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
+    public async Task StopAsync(CancellationToken cancellationToken)
     {
-        _rabbitClient.Stop();
-
-        return Task.CompletedTask;
+        await _rabbitClient.StopAsync(cancellationToken).ConfigureAwait(false);
     }
 }

@@ -11,7 +11,7 @@ public class RabbitClientBus : RabbitClient
         _sp = sp;
     }
 
-    protected override async Task OnReceived(object model, BasicDeliverEventArgs args, ConsumeOptions options)
+    protected override async Task OnReceivedAsync(object model, BasicDeliverEventArgs args, ConsumeOptions options)
     {
         using var scope = _sp.CreateScope();
         var bus = scope.ServiceProvider.GetRequiredService<IRabbitEventBus>();

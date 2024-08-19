@@ -2,30 +2,30 @@ namespace Raccoon.Stack.Rabbit;
 
 public interface IDeclaration
 {
-    void QueueDeclare(string queue, bool durable, bool autoDelete = false, bool exclusive = false,
+    Task QueueDeclareAsync(string queue, bool durable, bool autoDelete = false, bool exclusive = false,
         IDictionary<string, object> arguments = null);
 
-    void ExchangeDeclare(string exchange, string type, bool durable, bool autoDelete = false,
+    Task ExchangeDeclareAsync(string exchange, string type, bool durable, bool autoDelete = false,
         IDictionary<string, object> arguments = null);
 
-    void QueueBind(string queue, string exchange, string routingKey,
+    Task QueueBindAsync(string queue, string exchange, string routingKey,
         IDictionary<string, object> arguments = null);
 }
 
 public class DefaultDeclaration : IDeclaration
 {
-    private readonly IModel _chnl;
+    private readonly IChannel _chnl;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public DefaultDeclaration(IModel chnl)
+    public DefaultDeclaration(IChannel chnl)
     {
         _chnl = chnl;
     }
 
-    public void QueueDeclare(string queue, bool durable, bool autoDelete = false, bool exclusive = false,
+    public async Task  QueueDeclareAsync(string queue, bool durable, bool autoDelete = false, bool exclusive = false,
         IDictionary<string, object> arguments = null)
     {
-        _chnl.QueueDeclare(
+        await _chnl.QueueDeclareAsync(
             queue: queue,
             durable: durable,
             autoDelete: autoDelete,
@@ -33,10 +33,10 @@ public class DefaultDeclaration : IDeclaration
             arguments: arguments);
     }
 
-    public void ExchangeDeclare(string exchange, string type, bool durable, bool autoDelete = false,
+    public async Task ExchangeDeclareAsync(string exchange, string type, bool durable, bool autoDelete = false,
         IDictionary<string, object> arguments = null)
     {
-        _chnl.ExchangeDeclare(
+        await _chnl.ExchangeDeclareAsync(
             exchange: exchange,
             type: type,
             durable: durable,
@@ -44,9 +44,10 @@ public class DefaultDeclaration : IDeclaration
             arguments: arguments);
     }
 
-    public void QueueBind(string queue, string exchange, string routingKey, IDictionary<string, object> arguments)
+    public async Task QueueBindAsync(string queue, string exchange, string routingKey,
+        IDictionary<string, object> arguments)
     {
-        _chnl.QueueBind(
+        await _chnl.QueueBindAsync(
             queue: queue,
             exchange: exchange,
             routingKey: routingKey,

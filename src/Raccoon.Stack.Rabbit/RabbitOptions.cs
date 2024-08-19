@@ -4,8 +4,6 @@ public class RabbitOptions
 {
     public string ConnectionString { get; set; }
 
-    public int PoolSize { get; set; }
-
     public List<ConsumeOptions> Consumes { get; set; } = new();
 }
 
