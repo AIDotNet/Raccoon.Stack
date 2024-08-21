@@ -2,7 +2,7 @@
 
 namespace Raccoon.Stack.Data;
 
-internal class DefaultJsonDeserializer(JsonSerializerOptions? options = null) : IDeserializer
+public class DefaultJsonDeserializer(JsonSerializerOptions? options = null) : IDeserializer
 {
     public TValue? Deserialize<TValue>(string value)
         => JsonSerializer.Deserialize<TValue>(value, options);

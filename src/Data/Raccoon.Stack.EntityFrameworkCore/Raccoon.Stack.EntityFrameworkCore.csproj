@@ -17,6 +17,7 @@
       <ProjectReference Include="..\..\Ddd\Raccoon.Stack.Ddd.Domain\Raccoon.Stack.Ddd.Domain.csproj" />
       <ProjectReference Include="..\..\Raccoon.Stack.Core\Raccoon.Stack.Core.csproj" />
       <ProjectReference Include="..\..\Utils\Raccoon.Stack.Extensions.DotNet\Raccoon.Stack.Extensions.DotNet.csproj" />
+      <ProjectReference Include="..\..\Utils\Raccoon.Stack.Utils.Caching\Raccoon.Stack.Utils.Caching.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data.Contracts\Raccoon.Stack.Data.Contracts.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data.Exceptions\Raccoon.Stack.Data.Exceptions.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data.Isolation\Raccoon.Stack.Data.Isolation.csproj" />
