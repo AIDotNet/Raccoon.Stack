@@ -12,7 +12,7 @@ internal static class ChangeTrackerExtensions
             return;
 
         var entries = changeTracker.Entries().Where(entry
-            => (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.State == EntityState.Deleted) &&
+            => entry.State is EntityState.Added or EntityState.Modified or EntityState.Deleted &&
                entry.Entity is IHasConcurrencyStamp);
         foreach (var entity in entries)
         {

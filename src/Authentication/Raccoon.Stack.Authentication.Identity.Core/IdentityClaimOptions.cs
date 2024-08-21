@@ -103,42 +103,41 @@ public class IdentityClaimOptions
 
     public void Initialize()
     {
-        if (!IsInitialize)
+        if (IsInitialize) return;
+        Mappings.TryAdd(nameof(UserId).ToLower(), (k) =>
         {
-            Mappings.TryAdd(nameof(UserId).ToLower(), (k) =>
-            {
-                _userId = ClaimType.DEFAULT_USER_ID;
-                return _userId;
-            });
-            Mappings.TryAdd(nameof(UserName).ToLower(), (k) =>
-            {
-                _userName = ClaimType.DEFAULT_USER_NAME;
-                return _userName;
-            });
-            Mappings.TryAdd(nameof(Role).ToLower(), (k) =>
-            {
-                _role = ClaimType.DEFAULT_USER_ROLE;
-                return _role;
-            });
-            Mappings.TryAdd(nameof(TenantId).ToLower(), (k) =>
-            {
-                _tenantId = ClaimType.DEFAULT_TENANT_ID;
-                return _tenantId;
-            });
-            Mappings.TryAdd(nameof(Environment).ToLower(), (k) =>
-            {
-                _environment = ClaimType.DEFAULT_ENVIRONMENT;
-                return _environment;
-            });
-            IsInitialize = true;
-        }
+            _userId = ClaimType.DEFAULT_USER_ID;
+            return _userId;
+        });
+        Mappings.TryAdd(nameof(UserName).ToLower(), (k) =>
+        {
+            _userName = ClaimType.DEFAULT_USER_NAME;
+            return _userName;
+        });
+        Mappings.TryAdd(nameof(Role).ToLower(), (k) =>
+        {
+            _role = ClaimType.DEFAULT_USER_ROLE;
+            return _role;
+        });
+        Mappings.TryAdd(nameof(TenantId).ToLower(), (k) =>
+        {
+            _tenantId = ClaimType.DEFAULT_TENANT_ID;
+            return _tenantId;
+        });
+        Mappings.TryAdd(nameof(Environment).ToLower(), (k) =>
+        {
+            _environment = ClaimType.DEFAULT_ENVIRONMENT;
+            return _environment;
+        });
+        IsInitialize = true;
     }
 
     public string? GetClaimType(string name)
     {
-        if (_mapping.ContainsKey(name))
-            name = _mapping[name];
-
+        if (_mapping.TryGetValue(name, out name))
+        {
+            
+        }
         Mappings.TryGet(name.ToLower(), out string? value);
         return value;
     }

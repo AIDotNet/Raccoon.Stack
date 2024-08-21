@@ -6,7 +6,7 @@ namespace Raccoon.Stack.Rabbit;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// 注册rabbit hanlders
+    /// 注册rabbit Handler
     /// </summary>
     /// <param name="services"></param>
     /// <param name="options"></param>

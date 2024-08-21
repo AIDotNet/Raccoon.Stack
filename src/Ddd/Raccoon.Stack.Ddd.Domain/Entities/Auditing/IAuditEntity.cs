@@ -4,11 +4,11 @@ public interface IAuditEntity<out TUserId> : IEntity
 {
     TUserId Creator { get; }
 
-    DateTime CreationTime { get; }
+    DateTimeOffset CreationTime { get; }
 
     TUserId Modifier { get; }
 
-    DateTime ModificationTime { get; }
+    DateTimeOffset ModificationTime { get; }
 }
 
 public interface IAuditEntity<out TKey, out TUserId> : IAuditEntity<TUserId>, IEntity<TKey>

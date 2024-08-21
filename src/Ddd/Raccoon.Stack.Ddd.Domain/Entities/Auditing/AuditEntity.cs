@@ -4,11 +4,11 @@ public abstract class AuditEntity<TUserId> : Entity, IAuditEntity<TUserId>
 {
     public TUserId Creator { get; protected set; } = default!;
 
-    public DateTime CreationTime { get; protected set; }
+    public DateTimeOffset CreationTime { get; protected set; }
 
     public TUserId Modifier { get; protected set; } = default!;
 
-    public DateTime ModificationTime { get; set; }
+    public DateTimeOffset ModificationTime { get; set; }
 
     protected AuditEntity() => Initialize();
 
@@ -25,11 +25,11 @@ public abstract class AuditEntity<TKey, TUserId> : Entity<TKey>, IAuditEntity<TK
 {
     public TUserId Creator { get; protected set; } = default!;
 
-    public DateTime CreationTime { get; protected set; }
+    public DateTimeOffset CreationTime { get; protected set; }
 
     public TUserId Modifier { get; protected set; } = default!;
 
-    public DateTime ModificationTime { get; protected set; }
+    public DateTimeOffset ModificationTime { get; protected set; }
 
     protected AuditEntity() : base()
     {
@@ -47,5 +47,5 @@ public abstract class AuditEntity<TKey, TUserId> : Entity<TKey>, IAuditEntity<TK
         this.ModificationTime = this.GetCurrentTime();
     }
 
-    protected virtual DateTime GetCurrentTime() => DateTime.UtcNow;
+    protected virtual DateTimeOffset GetCurrentTime() => DateTime.UtcNow;
 }

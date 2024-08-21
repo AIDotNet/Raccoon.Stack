@@ -20,7 +20,6 @@
       <ProjectReference Include="..\..\Utils\Raccoon.Stack.Utils.Caching\Raccoon.Stack.Utils.Caching.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data.Contracts\Raccoon.Stack.Data.Contracts.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data.Exceptions\Raccoon.Stack.Data.Exceptions.csproj" />
-      <ProjectReference Include="..\Raccoon.Stack.Data.Isolation\Raccoon.Stack.Data.Isolation.csproj" />
       <ProjectReference Include="..\Raccoon.Stack.Data\Raccoon.Stack.Data.csproj" />
     </ItemGroup>
 

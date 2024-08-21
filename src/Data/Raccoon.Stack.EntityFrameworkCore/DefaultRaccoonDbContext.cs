@@ -4,13 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Raccoon.Stack.Core.Extensions;
 using Raccoon.Stack.Data;
 using Raccoon.Stack.Data.Concurrency;
 using Raccoon.Stack.Data.Contracts.DataFiltering;
 using Raccoon.Stack.Data.Exceptions;
-using Raccoon.Stack.Data.Isolation.MultiEnvironment;
-using Raccoon.Stack.Data.Isolation.MultiTenant;
 using Raccoon.Stack.EntityFrameworkCore.Extensions;
 
 namespace Raccoon.Stack.EntityFrameworkCore;
@@ -46,14 +43,6 @@ public class DefaultRaccoonDbContext : DbContext, IRaccoonDbContext
             return _concurrencyStampProvider;
         }
     }
-
-    private IMultiEnvironmentContext? EnvironmentContext => Options?.ServiceProvider?.GetService<IMultiEnvironmentContext>();
-
-    protected IMultiTenantContext? TenantContext => Options?.ServiceProvider?.GetService<IMultiTenantContext>();
-
-    protected virtual bool IsEnvironmentFilterEnabled => DataFilter?.IsEnabled<IMultiEnvironment>() ?? false;
-
-    protected virtual bool IsTenantFilterEnabled => DataFilter?.IsEnabled<IMultiTenant<Guid>>() ?? false;
 
     protected DefaultRaccoonDbContext()
     {
@@ -162,39 +151,7 @@ public class DefaultRaccoonDbContext : DbContext, IRaccoonDbContext
         {
             expression = entity => !IsSoftDeleteFilterEnabled || !EF.Property<bool>(entity, nameof(ISoftDelete.IsDeleted));
         }
-
-        if (typeof(IMultiEnvironment).IsAssignableFrom(typeof(TEntity)) && EnvironmentContext != null)
-        {
-            Expression<Func<TEntity, bool>> envFilter = entity => !IsEnvironmentFilterEnabled ||
-                                                                  EF.Property<string>(entity, nameof(IMultiEnvironment.Environment))
-                                                                      .Equals(EnvironmentContext != null
-                                                                          ? EnvironmentContext.CurrentEnvironment
-                                                                          : default);
-            expression = envFilter.And(expression != null, expression);
-        }
-
-        expression = CreateMultiTenantFilterExpression(expression);
-
-        return expression;
-    }
-
-    protected virtual Expression<Func<TEntity, bool>>? CreateMultiTenantFilterExpression<TEntity>(
-        Expression<Func<TEntity, bool>>? expression)
-        where TEntity : class
-    {
-        if (typeof(IMultiTenant<>).IsGenericInterfaceAssignableFrom(typeof(TEntity)) && TenantContext != null)
-        {
-            string defaultTenantId = Guid.Empty.ToString();
-            Expression<Func<TEntity, bool>> tenantFilter = entity => !IsTenantFilterEnabled ||
-                                                                     (EF.Property<Guid>(entity, nameof(IMultiTenant<Guid>.TenantId))
-                                                                         .ToString())
-                                                                     .Equals(TenantContext.CurrentTenant != null
-                                                                         ? TenantContext.CurrentTenant.Id
-                                                                         : defaultTenantId);
-
-            expression = tenantFilter.And(expression != null, expression);
-        }
-
+        
         return expression;
     }
 
@@ -275,44 +232,5 @@ public class DefaultRaccoonDbContext : DbContext, IRaccoonDbContext
 
     protected virtual void OnConfiguring(RaccoonDbContextOptionsBuilder optionsBuilder)
     {
-    }
-}
-
-/// <summary>
-/// This is an internal API backing the MasaDbContext infrastructure and is not subject to the same compatibility standards as the public API. It may be changed or removed without notice
-/// </summary>
-/// <typeparam name="TMultiTenantId"></typeparam>
-public class DefaultRaccoonDbContext<TMultiTenantId> : DefaultRaccoonDbContext
-    where TMultiTenantId : IComparable
-{
-    protected override bool IsTenantFilterEnabled => DataFilter?.IsEnabled<IMultiTenant<TMultiTenantId>>() ?? false;
-
-    protected DefaultRaccoonDbContext() : base()
-    {
-    }
-
-    public DefaultRaccoonDbContext(RaccoonDbContextOptions options) : base(options)
-    {
-    }
-
-    protected sealed override Expression<Func<TEntity, bool>>? CreateMultiTenantFilterExpression<TEntity>(
-        Expression<Func<TEntity, bool>>? expression)
-        where TEntity : class
-    {
-        if (typeof(IMultiTenant<>).IsGenericInterfaceAssignableFrom(typeof(TEntity)) && TenantContext != null)
-        {
-            string defaultTenantId = default(TMultiTenantId)?.ToString() ?? string.Empty;
-            Expression<Func<TEntity, bool>> tenantFilter = entity => !IsTenantFilterEnabled ||
-                                                                     (EF.Property<TMultiTenantId>(entity,
-                                                                          nameof(IMultiTenant<TMultiTenantId>.TenantId)).ToString() ??
-                                                                      string.Empty)
-                                                                     .Equals(TenantContext.CurrentTenant != null
-                                                                         ? TenantContext.CurrentTenant.Id
-                                                                         : defaultTenantId);
-
-            expression = tenantFilter.And(expression != null, expression);
-        }
-
-        return expression;
     }
 }

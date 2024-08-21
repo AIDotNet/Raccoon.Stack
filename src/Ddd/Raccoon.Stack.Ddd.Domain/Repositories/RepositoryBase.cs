@@ -1,11 +1,15 @@
 ﻿namespace Raccoon.Stack.Ddd.Domain.Repositories;
 
-public abstract class RepositoryBase<TEntity>(IServiceProvider serviceProvider) :
+public abstract partial class RepositoryBase<TEntity> :
     IRepository<TEntity>
     where TEntity : class, IEntity
 {
-    public IServiceProvider ServiceProvider { get; } = serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
+    public RepositoryBase(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
 
     #region IRepository<TEntity>
 

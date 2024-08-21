@@ -2,7 +2,7 @@
 
 namespace Raccoon.Stack.EntityFrameworkCore;
 
-public class RaccoonDbContextOptionsBuilder
+public partial class RaccoonDbContextOptionsBuilder
 {
     internal IServiceProvider? ServiceProvider { get; }
 

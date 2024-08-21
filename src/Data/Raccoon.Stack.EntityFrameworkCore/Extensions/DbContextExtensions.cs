@@ -4,10 +4,8 @@ using Microsoft.Extensions.Options;
 using Raccoon.Stack.Authentication.Identity;
 using Raccoon.Stack.Data;
 using Raccoon.Stack.Data.Exceptions;
-using Raccoon.Stack.Data.Isolation.Options;
 using Raccoon.Stack.Ddd.Domain.Options;
 using Raccoon.Stack.EntityFrameworkCore.Filters;
-using Raccoon.Stack.EntityFrameworkCore.Isolation;
 using Raccoon.Stack.Utils.Caching;
 
 namespace Raccoon.Stack.EntityFrameworkCore.Extensions;
@@ -40,36 +38,6 @@ internal static class DbContextExtensions
     #endregion
 
     #region Filter
-
-    #region IsolationFilter
-
-    private static MemoryCache<Type, object> _emptyIsolationSaveChangesFilter = new();
-    private static MemoryCache<Type, Type?> _isolationSaveChangesFilterTypeData = new();
-
-    public static object CreateIsolationSaveChangesFilter<TDbContextImplementation>(
-        IServiceProvider serviceProvider)
-        where TDbContextImplementation : DefaultRaccoonDbContext, IRaccoonDbContext
-    {
-        var genericType = _isolationSaveChangesFilterTypeData.GetOrAdd(typeof(TDbContextImplementation), type =>
-        {
-            var isolationOptions = serviceProvider.GetService<IOptions<IsolationOptions>>();
-            if (isolationOptions == null || !isolationOptions.Value.Enable)
-                return null;
-
-            return typeof(IsolationSaveChangesFilter<,>).MakeGenericType(typeof(TDbContextImplementation),
-                isolationOptions.Value.MultiTenantIdType);
-        });
-        if (genericType == null)
-        {
-            return _emptyIsolationSaveChangesFilter.GetOrAdd(typeof(TDbContextImplementation),
-                type => new EmptySaveFilter<TDbContextImplementation>());
-        }
-
-        var isolationSaveChangesFilter = Activator.CreateInstance(genericType, serviceProvider);
-        return (isolationSaveChangesFilter as ISaveChangesFilter<TDbContextImplementation>)!;
-    }
-
-    #endregion
 
     #region SaveChangeFilter
 
@@ -122,8 +90,6 @@ internal static class DbContextExtensions
     /// </summary>
     internal static void InitializeCacheData()
     {
-        _emptyIsolationSaveChangesFilter = new();
-        _isolationSaveChangesFilterTypeData = new();
         _saveChangesFilterTypeData = new();
         _softDeleteSaveChangesFilterTypeData = new();
     }

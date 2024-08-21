@@ -4,11 +4,11 @@ public abstract class AuditAggregateRoot<TUserId> : AggregateRoot, IAuditAggrega
 {
     public TUserId Creator { get; protected set; } = default!;
 
-    public DateTime CreationTime { get; protected set; }
+    public DateTimeOffset CreationTime { get; protected set; }
 
     public TUserId Modifier { get; protected set; } = default!;
 
-    public DateTime ModificationTime { get; set; }
+    public DateTimeOffset ModificationTime { get; set; }
 
     protected AuditAggregateRoot() => Initialize();
 
@@ -25,11 +25,11 @@ public abstract class AuditAggregateRoot<TKey, TUserId> : AggregateRoot<TKey>, I
 {
     public TUserId Creator { get; protected set; } = default!;
 
-    public DateTime CreationTime { get; protected set; }
+    public DateTimeOffset CreationTime { get; protected set; }
 
     public TUserId Modifier { get; protected set; } = default!;
 
-    public DateTime ModificationTime { get; protected set; }
+    public DateTimeOffset ModificationTime { get; protected set; }
 
     protected AuditAggregateRoot() : base()
     {
