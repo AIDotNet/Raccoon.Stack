@@ -60,6 +60,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raccoon.Stack.Utils.Caching
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raccoon.Stack.Uow.EntityFrameworkCore", "src\Data\Raccoon.Stack.Uow.EntityFrameworkCore\Raccoon.Stack.Uow.EntityFrameworkCore.csproj", "{387A2930-FB1C-487D-8775-012AF13901F2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{82BDCB8B-76C4-47B8-8F4E-0B86A23461A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raccoon.Stack.Service.MinimalAPIs", "src\Service\Raccoon.Stack.Service.MinimalAPIs\Raccoon.Stack.Service.MinimalAPIs.csproj", "{310BD2FB-1D65-4830-A1D2-3D58122ED6DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raccoon.Stack.Service.MinimalAPIs.Core", "src\Service\Raccoon.Stack.Service.MinimalAPIs.Core\Raccoon.Stack.Service.MinimalAPIs.Core.csproj", "{F397C1F0-1B34-4A5B-8ABE-218A9C675550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +95,9 @@ Global
 		{B12249A4-9C60-4F50-A896-DBD58BD56BB4} = {7D82B70B-4FC3-4D72-B832-CE93391077C2}
 		{2AC61512-F69B-434F-895A-65DD561CAC18} = {0F243CCD-D395-4EAF-9C3D-B1CDBB4C0504}
 		{387A2930-FB1C-487D-8775-012AF13901F2} = {3358B755-E720-4884-B8B3-159AB695D1CB}
+		{82BDCB8B-76C4-47B8-8F4E-0B86A23461A3} = {320FB6BB-CFC9-404B-B918-D038AB173FC3}
+		{310BD2FB-1D65-4830-A1D2-3D58122ED6DC} = {82BDCB8B-76C4-47B8-8F4E-0B86A23461A3}
+		{F397C1F0-1B34-4A5B-8ABE-218A9C675550} = {82BDCB8B-76C4-47B8-8F4E-0B86A23461A3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{04600DF5-5E33-44CB-9E14-AC10B7A4E376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -159,5 +168,13 @@ Global
 		{387A2930-FB1C-487D-8775-012AF13901F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{387A2930-FB1C-487D-8775-012AF13901F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{387A2930-FB1C-487D-8775-012AF13901F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310BD2FB-1D65-4830-A1D2-3D58122ED6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310BD2FB-1D65-4830-A1D2-3D58122ED6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310BD2FB-1D65-4830-A1D2-3D58122ED6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310BD2FB-1D65-4830-A1D2-3D58122ED6DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F397C1F0-1B34-4A5B-8ABE-218A9C675550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F397C1F0-1B34-4A5B-8ABE-218A9C675550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F397C1F0-1B34-4A5B-8ABE-218A9C675550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F397C1F0-1B34-4A5B-8ABE-218A9C675550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
