@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Raccoon.Stack.Configuration;
 using Raccoon.Stack.Data;
 using Raccoon.Stack.Data.Concurrency;
 using Raccoon.Stack.Data.Exceptions;
