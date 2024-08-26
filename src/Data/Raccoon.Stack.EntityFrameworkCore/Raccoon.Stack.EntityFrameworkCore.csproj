@@ -15,6 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Authentication\Raccoon.Stack.Authentication.Identity\Raccoon.Stack.Authentication.Identity.csproj" />
       <ProjectReference Include="..\..\Ddd\Raccoon.Stack.Ddd.Domain\Raccoon.Stack.Ddd.Domain.csproj" />
+      <ProjectReference Include="..\..\Raccoon.Stack.Configuration\Raccoon.Stack.Configuration.csproj" />
       <ProjectReference Include="..\..\Raccoon.Stack.Core\Raccoon.Stack.Core.csproj" />
       <ProjectReference Include="..\..\Utils\Raccoon.Stack.Extensions.DotNet\Raccoon.Stack.Extensions.DotNet.csproj" />
       <ProjectReference Include="..\..\Utils\Raccoon.Stack.Utils.Caching\Raccoon.Stack.Utils.Caching.csproj" />

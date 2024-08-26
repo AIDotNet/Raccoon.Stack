@@ -10,7 +10,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="$(MicrosoftAspNetCorePackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftAspNetCorePackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftAspNetCorePackageVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftAspNetCorePackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Options" Version="$(MicrosoftAspNetCorePackageVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(MicrosoftAspNetCorePackageVersion)"/>
     </ItemGroup>

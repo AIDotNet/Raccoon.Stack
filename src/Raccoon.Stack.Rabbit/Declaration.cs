@@ -14,18 +14,18 @@ public interface IDeclaration
 
 public class DefaultDeclaration : IDeclaration
 {
-    private readonly IChannel _chnl;
+    private readonly IChannel _channel;
 
     // ReSharper disable once ConvertToPrimaryConstructor
-    public DefaultDeclaration(IChannel chnl)
+    public DefaultDeclaration(IChannel channel)
     {
-        _chnl = chnl;
+        _channel = channel;
     }
 
     public async Task  QueueDeclareAsync(string queue, bool durable, bool autoDelete = false, bool exclusive = false,
         IDictionary<string, object> arguments = null)
     {
-        await _chnl.QueueDeclareAsync(
+        await _channel.QueueDeclareAsync(
             queue: queue,
             durable: durable,
             autoDelete: autoDelete,
@@ -36,7 +36,7 @@ public class DefaultDeclaration : IDeclaration
     public async Task ExchangeDeclareAsync(string exchange, string type, bool durable, bool autoDelete = false,
         IDictionary<string, object> arguments = null)
     {
-        await _chnl.ExchangeDeclareAsync(
+        await _channel.ExchangeDeclareAsync(
             exchange: exchange,
             type: type,
             durable: durable,
@@ -47,7 +47,7 @@ public class DefaultDeclaration : IDeclaration
     public async Task QueueBindAsync(string queue, string exchange, string routingKey,
         IDictionary<string, object> arguments)
     {
-        await _chnl.QueueBindAsync(
+        await _channel.QueueBindAsync(
             queue: queue,
             exchange: exchange,
             routingKey: routingKey,
