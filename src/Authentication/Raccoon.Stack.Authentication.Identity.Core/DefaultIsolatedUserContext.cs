@@ -1,5 +1,4 @@
 ﻿using Raccoon.Stack.Authentication.Identity.Entities.Isolation;
-using Raccoon.Stack.EntityFrameworkCore;
 
 namespace Raccoon.Stack.Authentication.Identity.Core;
 
@@ -9,17 +8,16 @@ public class DefaultIsolatedUserContext : BaseUserContext, IIsolatedUserContext
 
     public string? Environment => GetUser<IsolatedIdentityUser>()?.Environment;
 
-    public DefaultIsolatedUserContext(IUserContext userContext, ITypeConvertProvider typeConvertProvider)
-        : base(userContext, typeConvertProvider)
+    public DefaultIsolatedUserContext(IUserContext userContext)
+        : base()
     {
     }
 
-    public TTenantId? GetTenantId<TTenantId>()
+    public string? GetTenantId<TTenantId>()
     {
         var tenantId = TenantId;
-        if (tenantId == null)
-            return default;
 
-        return TypeConvertProvider.ConvertTo<TTenantId>(tenantId);
+
+        return tenantId;
     }
 }

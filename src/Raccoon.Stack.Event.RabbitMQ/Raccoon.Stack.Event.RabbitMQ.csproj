@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Raccoon.Stack.Codec\Raccoon.Stack.Codec.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Configuration\Raccoon.Stack.Configuration.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Event\Raccoon.Stack.Event.csproj" />
+      <ProjectReference Include="..\Raccoon.Stack.Rabbit\Raccoon.Stack.Rabbit.csproj" />
+    </ItemGroup>
+
+</Project>

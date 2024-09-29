@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Raccoon.Stack.Authentication.Identity.Core.Extensions;
-using Raccoon.Stack.EntityFrameworkCore;
 using Raccoon.Stack.Utils.Caching;
 
 namespace Raccoon.Stack.Authentication.Identity.Core;
@@ -17,10 +16,9 @@ public class DefaultUserContext : UserContext
     private ClaimsPrincipal? ClaimsPrincipal { get; set; }
 
     public DefaultUserContext(
-        ITypeConvertProvider typeConvertProvider,
         ICurrentPrincipalAccessor currentPrincipalAccessor,
         IOptionsMonitor<IdentityClaimOptions> optionsMonitor)
-        : base(typeConvertProvider)
+        : base()
     {
         _optionsMonitor = optionsMonitor;
         _optionsMonitor.CurrentValue.Initialize();
@@ -57,7 +55,7 @@ public class DefaultUserContext : UserContext
 
                 try
                 {
-                    claimTypeValue = TypeConvertProvider.ConvertTo(claimValue, property.PropertyType);
+                    claimTypeValue = JsonSerializer.Deserialize(claimValue, property.PropertyType);
                 }
                 catch
                 {
@@ -99,6 +97,6 @@ public class DefaultUserContext : UserContext
             });
         }
 
-        return TypeConvertProvider.ConvertTo(JsonSerializer.Serialize(claimValues), property.PropertyType);
+        return JsonSerializer.Deserialize(JsonSerializer.Serialize(claimValues), property.PropertyType);
     }
 }

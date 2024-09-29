@@ -1,51 +1,14 @@
-﻿using System.Text.Json;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using Raccoon.Stack.Data;
-using Raccoon.Stack.Data.TypeConverts;
-using Raccoon.Stack.EntityFrameworkCore;
 
 namespace Raccoon.Stack.Authentication.Identity.Core;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRaccoonIdentityCore(
-        this IServiceCollection services,
-        Action<JsonSerializerOptions>? configure)
-        => services.AddRaccoonIdentityCore(_ => { }, configure);
-
-    public static IServiceCollection AddRaccoonIdentityCore(
-        this IServiceCollection services,
-        Action<IdentityClaimOptions> configureOptions,
-        Action<JsonSerializerOptions>? configure = null)
-    {
-        services.AddSingleton<IdentityProvider>();
-
-        services.Configure(configureOptions);
-
-        bool isInitialized = false;
-        JsonSerializerOptions? jsonSerializerOptions = null;
-        return services.AddMasaIdentityModelCore(_ =>
-        {
-            JsonSerializerOptions? jsonSerializerOptionsTemp = jsonSerializerOptions;
-            if (!isInitialized)
-            {
-                if (configure != null)
-                {
-                    jsonSerializerOptionsTemp = new JsonSerializerOptions();
-                    configure.Invoke(jsonSerializerOptionsTemp);
-                }
-
-                jsonSerializerOptions = jsonSerializerOptionsTemp;
-                isInitialized = true;
-            }
-
-            var deserializer = new DefaultJsonDeserializer(jsonSerializerOptionsTemp);
-            var typeConvertProvider = new DefaultTypeConvertProvider(deserializer);
-            return typeConvertProvider;
-        });
-    }
+        this IServiceCollection services)
+        => services.AddRaccoonIdentityCore();
 
     public static IServiceCollection AddRaccoonIdentityCore(
         this IServiceCollection services,
@@ -55,30 +18,24 @@ public static class ServiceCollectionExtensions
 
         services.Configure(configureOptions);
 
-        return services.AddMasaIdentityModelCore(_ =>
-            new DefaultTypeConvertProvider(new DefaultJsonDeserializer(new JsonSerializerOptions())));
+        return services.AddMasaIdentityModelCore();
     }
 
     private static IServiceCollection AddMasaIdentityModelCore(
-        this IServiceCollection services,
-        Func<IServiceProvider, ITypeConvertProvider> func)
+        this IServiceCollection services)
     {
         services.TryAddScoped<DefaultUserContext>(serviceProvider => new DefaultUserContext(
-            func.Invoke(serviceProvider),
             serviceProvider.GetRequiredService<ICurrentPrincipalAccessor>(),
             serviceProvider.GetRequiredService<IOptionsMonitor<IdentityClaimOptions>>())
         );
         services.TryAddScoped<IUserContext>(serviceProvider => serviceProvider.GetService<DefaultUserContext>()!);
         services.TryAddScoped<IMultiTenantUserContext>(serviceProvider => new DefaultMultiTenantUserContext(
-            serviceProvider.GetRequiredService<IUserContext>(),
-            func.Invoke(serviceProvider)
+            serviceProvider.GetRequiredService<IUserContext>()
         ));
         services.TryAddScoped<IMultiEnvironmentUserContext>(serviceProvider => new DefaultMultiEnvironmentUserContext(
-            serviceProvider.GetRequiredService<IUserContext>(),
-            func.Invoke(serviceProvider)));
+            serviceProvider.GetRequiredService<IUserContext>()));
         services.TryAddScoped<IIsolatedUserContext>(serviceProvider => new DefaultIsolatedUserContext(
-            serviceProvider.GetRequiredService<IUserContext>(),
-            func.Invoke(serviceProvider)));
+            serviceProvider.GetRequiredService<IUserContext>()));
         return services;
     }
 

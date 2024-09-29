@@ -10,11 +10,7 @@ public interface IUserContext
 
     string? UserName { get; }
 
-    TUserId? GetUserId<TUserId>();
-
     IdentityUser? GetUser();
 
     TIdentityUser? GetUser<TIdentityUser>() where TIdentityUser : IIdentityUser;
-
-    IEnumerable<TRoleId> GetUserRoles<TRoleId>();
 }

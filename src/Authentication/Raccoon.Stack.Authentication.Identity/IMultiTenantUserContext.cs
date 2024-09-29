@@ -7,5 +7,5 @@ public interface IMultiTenantUserContext : IUserContext
 {
     string? TenantId { get; }
 
-    TTenantId? GetTenantId<TTenantId>();
+    string? GetTenantId<TTenantId>();
 }
